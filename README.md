@@ -1,65 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Tutorial: Deploying a basic Laravel app on Jekyo
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Demo app [here](https://laravel-demo.jekyo.app/)
 
-## About Laravel
+### Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Make sure you have [NodeJS](https://nodejs.org/en/download/), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [git](https://github.com/git-guides/install-git) installed.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+If it's your first time using **Jekyo**, you can **install** it by running the following command in your terminal:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+`npm install -g jekyo`
 
-## Learning Laravel
+### Sign in to Jekyo
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+You can sign in to Jekyo by running `jekyo user:signin`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+➜  ~ jekyo user:signin 
+Your email?: **************
+Your password?: **********
+You have successfully signed in!
+```
+If you don't have a Jekyo account, you can create one in the terminal by running `jekyo user:signup`. 
 
-## Laravel Sponsors
+## 1. Create a basic Laravel app
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+You can start your Laravel project by using `jekyo create`
 
-### Premium Partners
+Using the **arrows** on your keyboard, select **laravel** and press **enter**.  
+```
+? Select template
+  None Creates only the application
+  expressjs A basic app skeleton using [Express](https://expressjs.com/)     
+  nuxt-js A boilerplate SSR application using [Nuxt.js](https://nuxtjs.org/) 
+❯ laravel A basic starter app using [Laravel](https://laravel.com/)
+```
+When prompted, enter the desired name for your Laravel app. 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+`Application name?: laravel-tutorial`
 
-## Contributing
+This will create a basic Laravel app in the current directory by cloning this [Laravel starter app](https://github.com/jekyo/laravel-getting-started) repository.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+Cloning source code... OK
+Application created!
+```
 
-## Code of Conduct
+### Deploy the Laravel app on Jekyo
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+To deploy the app, first navigate to the newly created directory:
 
-## Security Vulnerabilities
+`cd laravel-tutorial`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Now you can deploy this app to Jekyo by running: 
 
-## License
+`jekyo deploy`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+After a while, you should see something like this:
+
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://laravel-tutorial.jekyo.app ... OK
+```
+
+You can now browse to your Laravel app on https://laravel-tutorial.jekyo.app (replace 'laravel-tutorial' with your app name)
+
+## 2. Deploying an existing Laravel app
+
+Navigate to your local Laravel app directory
+
+`cd my-laravel-app`
+
+Initialize a git repository if you haven't already done so by running `git init`. 
+
+### Edit package.json
+
+In your _package.json_ file, add a **"start"** line in **"scripts"** and include Jekyo's port and host variables:
+
+```
+"start": "mix --production --port=$PORT --host=$HOST"
+```
+
+### Create an empty Jekyo app:
+
+`jekyo create` 
+
+Select 'none' using the **arrows** on your keyboard and press **enter**. This will create an app using your current directory. 
+
+```
+? Select template (Use arrow keys)
+❯ None Creates an application from your current directory
+```
+
+Name your app: 
+
+`Application name?: my-laravel-app`
+
+Run `jekyo link` to link your local app to the remote Jekyo app. Select 'my-laravel-app' using the **arrows** on your keyboard and press **enter**.
+
+```
+? Select application (Use arrow keys)
+❯ my-laravel-app
+```
+### Now you can deploy this app to Jekyo by running: 
+
+`jekyo deploy`
+
+After a while, you should see something like this:
+
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://my-laravel-app.jekyo.app ... OK
+```
+
+You can now browse to your Laravel app on https://my-laravel-app.jekyo.app (replace 'my-laravel-app' with your app name)
+
+## Pushing local changes to Jekyo 
+
+Add the newly modified file(s) to the git index by using [git add](https://www.atlassian.com/git/tutorials/saving-changes)
+
+`git add filename`
+
+Create a [git commit](https://github.com/git-guides/git-commit)
+
+`git commit -m "your commit message"`
+
+Now, simply deploy your app again:
+
+`jekyo deploy`
+
+You will see your changes on your live app after a short while. 
