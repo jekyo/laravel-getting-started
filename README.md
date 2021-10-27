@@ -74,14 +74,47 @@ Navigate to your local Laravel app directory
 
 `cd my-laravel-app`
 
-Initialize a git repository if you haven't already done so by running `git init`. 
+
 
 ### Edit package.json
 
 In your _package.json_ file, add a **"start"** line in **"scripts"** and include Jekyo's port and host variables:
 
 ```
-"start": "mix --production --port=$PORT --host=$HOST"
+"scripts": {
+    ...
+    ...
+    ...
+    "start": "mix --production --port=$PORT --host=$HOST"
+}
+```
+### .htaccess
+
+**In the root directory** of your app (not in the _public_ folder), create a file named `.htaccess` with the following code: 
+
+```
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+```
+
+### 
+
+Initialize a git repository if you haven't already done so by running `git init`. 
+
+```
+git init
+git add .
+git commit -m "initial commit"
+```
+
+If you were already working in a git repository, commit your changes:
+
+```
+git add package.json
+git add .htaccess
+git commit -m "your commit message"
 ```
 
 ### Create an empty Jekyo app:
